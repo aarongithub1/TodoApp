@@ -50,7 +50,6 @@ INDEX VERSION 1.130+/Users/falcon/SD/angularTodo/.metadata/.plugins/org.eclipse.
 3387732357.index
 3619427458.index
 2362891960.index
-494725277.index
 3277980169.index
 1563931275.index
 2785500211.index
