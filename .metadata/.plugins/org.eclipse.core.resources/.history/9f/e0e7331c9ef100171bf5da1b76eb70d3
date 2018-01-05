@@ -1,0 +1,7 @@
+package entities;
+
+@Entity
+@Table(name="todo")
+public class Todo {
+
+}

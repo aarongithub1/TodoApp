@@ -1,0 +1,11 @@
+package data;
+
+public interface TodoDAO {
+	
+	public Set<Todo> index();
+	public Todo show(int id);
+	public Todo create(String json);
+	public Todo update(int id, String json);
+	public boolean delete(int id);
+
+}

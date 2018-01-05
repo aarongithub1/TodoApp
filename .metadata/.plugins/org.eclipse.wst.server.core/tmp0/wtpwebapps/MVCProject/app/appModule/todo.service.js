@@ -25,7 +25,11 @@ angular.module('appModule')
 	
 	// public
 	service.index = function() {
-		return todos;
+		return $http({
+			method : 'GET',
+			url : 'rest/user/1/todo'
+		});
+//		return todos;
 	};
 	
 	var generateId = function() {

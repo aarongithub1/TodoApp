@@ -1,0 +1,36 @@
+package entities;
+
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="todo")
+public class Todo {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	private String task;
+	
+	private String description;
+	
+	private boolean completed;
+	@Column()
+	private int userId;
+	@Column()
+	private String dueDate;
+	@Column()
+	private String completeDate;
+	@Column()
+	private Date createdAt;
+	@Column()
+	private Date updatedAt;
+	
+
+}

@@ -1,0 +1,53 @@
+package data;
+
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import entities.Todo;
+
+@Transactional
+@Repository
+public class TodoDAOImpl implements TodoDAO {
+	
+	@PersistenceContext
+	private EntityManager em;
+
+	@Override
+	public List<Todo> index() {
+		String query = "SELECT DISTINCT t FROM Todo t";
+		List<Todo> index = em.createQuery(query, Todo.class).getResultList();
+		System.out.println(index);
+		return index;
+	}
+
+	@Override
+	public Todo show(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Todo create(String json) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Todo update(int id, String json) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+}

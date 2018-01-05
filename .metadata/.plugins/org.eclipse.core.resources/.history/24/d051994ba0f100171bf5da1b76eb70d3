@@ -1,0 +1,12 @@
+package data;
+
+
+public class TodoDAOImpl implements TodoDAO {
+	
+	public Set<Todo> index();
+	public Gas show(int id);
+	public Gas create(String json);
+	public Gas update(int id, String json);
+	public boolean delete(int id);
+
+}
