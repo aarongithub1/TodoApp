@@ -1,0 +1,103 @@
+angular.module('appModule')
+	.component('todoList', {
+		templateUrl : "app/appModule/todoList/todoList.component.html",
+		controller : function(todoService) {
+			
+			var vm = this;
+			
+			vm.selected = null;
+			
+			vm.todos = [];
+			
+//			vm.todos = todoService.index();
+			
+			reload = function() {
+				todoService.index()
+				.then(function(res){
+					vm.todos = res.data;
+					console.log(res);
+				})
+			}
+			
+			reload();
+			
+			vm.addItem = function(createTodo) {
+				var todo = angular.copy(createTodo);
+				todo.completed = 'false';
+				
+				todoService.create(todo)
+				.then(function(res){
+					vm.todos = res.data;
+//					vm.todos = todoService.index();
+					reload();
+					
+				})
+			}
+			
+			vm.getNumOfItemInList = function() {
+				var count = 0;
+				console.log(count);
+				vm.todos.forEach(function(todo){
+					if(todo.completed === false){
+						count++;
+					}
+				})
+				return count;
+		    }
+			
+			vm.displayTodo = function(todo) {
+				vm.selected = todo;
+				console.log(todo);
+			}
+			
+			vm.displayTable = function() {
+				vm.selected = null;
+			}
+			
+			vm.setEditTodo = function(selected) {
+				vm.editTodo =  angular.copy(selected);
+			}
+			
+			vm.setEditNull = function() {
+				vm.editTodo = null;
+			}
+			
+			vm.markComplete = function(todo) {
+				todoService.update(todo)
+					.then(function(res){
+						vm.todos = res.data;
+						reload();
+					})
+			}
+			
+			vm.updateTodo = function(todo) {
+				todoService.update(todo)
+					.then(function(res){
+						vm.todos = res.data;
+						reload();
+					})
+				vm.selected = todo;
+				vm.editTodo = null;
+			}
+			
+			vm.deleteTodo = function(id) {
+				todoService.destroy(id)
+					.then(function(res){
+						vm.todos = res.data;
+						reload();
+					})
+			}
+			
+//			vm.checkbox = function() {
+//				todoService.checkbox()
+//					.then(function(res){
+//						vm.todos = res.data;
+//						reload();
+//					})
+//			}
+			
+		},
+		
+		controllerAs : 'vm'
+			
+	});

@@ -1,0 +1,64 @@
+angular.module('appModule')
+	.component('todoList', {
+		templateUrl : "app/appModule/todoList/todoList.component.html",
+		controller : function(todoService) {
+			
+			var vm = this;
+			
+			vm.selected = null;
+			
+			vm.todos = [];
+			
+			vm.todos = todoService.index();
+			
+			
+			vm.addItem = function(todo) {
+				todoService.create(todo);
+				vm.todos = todoService.index();
+			}
+			
+			vm.getNumOfItemInList = function() {
+				var count = 0;
+				console.log(count);
+				vm.todos.forEach(function(todo){
+					if(todo.completed === false){
+						count++;
+					}
+				})
+				return count;
+		    }
+			
+			vm.displayTodo = function(todo) {
+				vm.selected = todo;
+				console.log(todo);
+			}
+			
+			vm.displayTable = function() {
+				vm.selected = null;
+			}
+			
+			vm.setEditTodo = function(selected) {
+				vm.editTodo =  angular.copy(selected);
+			}
+			
+			vm.setEditNull = function() {
+				vm.editTodo = null;
+			}
+			
+			vm.updateTodo = function(todo) {
+				todoService.update(todo);
+				vm.todos = todoService.index();
+				vm.selected = todo;
+				vm.editTodo = null;
+			}
+			
+			vm.deleteTodo = function(id) {
+				todoService.destroy(id);
+				vm.todos = todoService.index();
+			}
+			
+		},
+		
+		controllerAs : 'vm'
+			
+	});

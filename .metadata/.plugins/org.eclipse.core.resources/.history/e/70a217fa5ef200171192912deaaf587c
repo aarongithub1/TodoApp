@@ -1,0 +1,51 @@
+<!-- <h1>Hello from todo List component</h1> -->
+<h1>Todo List (Angular) {{vm.getNumOfItemInList()}}</h1>
+
+<!-- Show Details View -->
+<div ng-show="vm.selected">
+	<h3>Task: "{{vm.selected.task}}"</h3>
+	<h3>Desc: "{{vm.selected.description}}"</h3>
+	<h3>Comp: "{{vm.selected.completed}}"</h3>
+	
+	<button ng-click="vm.setEditTodo(vm.selected)">Edit</button>
+	<button ng-click="vm.displayTable()">Back</button>
+</div>
+
+<!-- Edit Todo Object -->
+<form ng-show="vm.editTodo">
+  <input type="text" ng-model="vm.editTodo.task" /><br />
+  <input type="text" ng-model="vm.editTodo.description" /><br />
+  <input type="checkbox" ng-model="vm.editTodo.completed" ng-change="vm.updateTodo(vm.editTodo)"/><br />
+  <input type="submit" ng-click="vm.setEditNull()" value="Cancel" />
+  <input type="submit" ng-click="vm.updateTodo(vm.editTodo)" value="Save" />
+</form>
+
+<!-- Create New Todo Item -->
+<form ng-show="!vm.selected">
+  <input type="text" ng-model="item.task" placeholder="Task" /><br />
+  <input type="text" ng-model="item.description" placeholder="desscription" /><br />
+  <!-- <input type="text" ng-model="item.completed" placeholder="completed" /><br /> -->
+  <input type="submit" ng-click="vm.addItem(item); item = {}" value="Add Item" />
+</form>
+
+<!-- Table of All Todo Items -->
+<table ng-show="!vm.selected">
+	<thead>
+		<tr>
+			<th>Task</th>
+			<th>Mark</th>
+			<th>Completed</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="todo in vm.todos">
+			<td ng-click="vm.displayTodo(todo)">{{todo.task}}</td>
+			<td><input type="checkbox" ng-model="todo.completed" ng-change="vm.updateTodo(todo)" /></td>
+			<td>{{todo.completed}}</td>
+			<td><button ng-click="vm.deleteTodo(todo.id)">Delete</button></td>
+			
+		</tr>
+	</tbody>
+	
+</table>
+	

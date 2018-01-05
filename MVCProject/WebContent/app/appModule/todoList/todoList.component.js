@@ -9,16 +9,34 @@ angular.module('appModule')
 			
 			vm.todos = [];
 			
-			vm.todos = todoService.index();
-			
-			
-			vm.addItem = function(todo) {
-				todoService.create(todo);
-				vm.todos = todoService.index();
+			// Display Updated List
+			var reload = function() {
+				todoService.index()
+				.then(function(res){
+					vm.todos = res.data;
+					console.log(res);
+				})
 			}
 			
+			reload();
+			
+			// Create Todo Item
+			vm.addItem = function(createTodo) {
+				var todo = angular.copy(createTodo);
+				todo.completed = 'false';
+				
+				todoService.create(todo)
+				.then(function(res){
+//					vm.todos = res.data;
+					reload();
+					
+				})
+			}
+			
+			// shows number of Items that need completion
 			vm.getNumOfItemInList = function() {
 				var count = 0;
+//				reload();
 				console.log(count);
 				vm.todos.forEach(function(todo){
 					if(todo.completed === false){
@@ -28,33 +46,54 @@ angular.module('appModule')
 				return count;
 		    }
 			
+			//on todo item click - shows detail view 
 			vm.displayTodo = function(todo) {
 				vm.selected = todo;
 				console.log(todo);
 			}
 			
+			//back button - toggle show/hide table
 			vm.displayTable = function() {
 				vm.selected = null;
 			}
 			
+			//edit button - toggle show/hide edit form
 			vm.setEditTodo = function(selected) {
 				vm.editTodo =  angular.copy(selected);
 			}
 			
+			//cancel button - toggle show/hide edit form
 			vm.setEditNull = function() {
 				vm.editTodo = null;
 			}
 			
+			// persist true/false on checkbox ng-change
+			vm.markComplete = function(todo) {
+				todoService.update(todo)
+					.then(function(res){
+//						vm.todos = res.data;
+						reload();
+					})
+			}
+			
+			//update todo item
 			vm.updateTodo = function(todo) {
-				todoService.update(todo);
-				vm.todos = todoService.index();
+				todoService.update(todo)
+					.then(function(res){
+//						vm.todos = res.data;
+						reload();
+					})
 				vm.selected = todo;
 				vm.editTodo = null;
 			}
 			
+			//delete todo item
 			vm.deleteTodo = function(id) {
-				todoService.destroy(id);
-				vm.todos = todoService.index();
+				todoService.destroy(id)
+					.then(function(res){
+//						vm.todos = res.data;
+						reload();
+					})
 			}
 			
 		},

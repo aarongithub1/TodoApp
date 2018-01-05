@@ -1,6 +1,1 @@
 INDEX VERSION 1.4+/Users/falcon/SD/angularTodo/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
-1967974721.index
-3790588308.index
-729070979.index
-1540682727.index
-2805936885.index
